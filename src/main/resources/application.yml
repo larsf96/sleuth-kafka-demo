@@ -1,0 +1,36 @@
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+  shutdown: graceful
+
+# management:
+#   health.probes.enabled: true
+#   endpoints:
+#     jmx.exposure.exclude: "*"
+#     web.exposure.include: health
+
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  kafka:
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      auto.register.schemas: true
+    bootstrap-servers: strimzi-kafka-cluster-kafka-vnet-bootstrap.kafka.svc.cluster.local:9094
+    properties.schema.registry.url: http://schema-registry:8081
+  sleuth:
+    sampler.percentage: 1.0
+    web.skipPattern: (^cleanup.*)
+  zipkin:
+    baseUrl: http://jaeger-collector:9411
+
+
+logging:
+  level:
+    root: INFO
