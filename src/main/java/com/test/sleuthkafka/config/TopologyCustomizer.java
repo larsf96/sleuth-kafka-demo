@@ -20,10 +20,10 @@ public class TopologyCustomizer implements KafkaStreamsInfrastructureCustomizer 
     private final Serde<String> keySerde;
 
     /** The raw data event serde. */
-    private final Serde<TestEvent> testDataEventSerde;
+    private final Serde<String> testDataEventSerde;
 
 
-    public TopologyCustomizer(String testDataTopic, Serde<String> keySerde, Serde<TestEvent> testDataEventSerde, String outTopic) {
+    public TopologyCustomizer(String testDataTopic, Serde<String> keySerde, Serde<String> testDataEventSerde, String outTopic) {
         this.testDataTopic = testDataTopic;
         this.keySerde = keySerde;
         this.testDataEventSerde = testDataEventSerde;

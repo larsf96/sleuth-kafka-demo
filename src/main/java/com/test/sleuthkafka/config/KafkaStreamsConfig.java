@@ -43,9 +43,6 @@ public class KafkaStreamsConfig {
     @Autowired
     private Environment env;
 
-    @Autowired
-    private Tracing tracing;
-
 
     @Bean
     public KafkaStreamsConfiguration kafkaStreamsConfigConfiguration() {
@@ -76,12 +73,11 @@ public class KafkaStreamsConfig {
 
         final Serde<String> keySerde = Serdes.String();
 
-        final Serde<TestEvent> testDataEventSerde = new SpecificAvroSerde<>();
+        final Serde<String> testDataEventSerde = Serdes.String();
         testDataEventSerde.configure(serdeConfig, false);
 
 
         final StreamsBuilderFactoryBean streamsBuilderFactoryBean = new StreamsBuilderFactoryBean(kafkaStreamsConfigConfiguration);
-        streamsBuilderFactoryBean.setClientSupplier(KafkaStreamsTracing.create(tracing).kafkaClientSupplier());
         streamsBuilderFactoryBean.afterPropertiesSet();
         streamsBuilderFactoryBean.setInfrastructureCustomizer( //
                 new TopologyCustomizer( //

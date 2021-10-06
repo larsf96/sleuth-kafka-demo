@@ -11,6 +11,8 @@ server:
 #     web.exposure.include: health
 
 spring:
+  application:
+    name: sleuth-test
   jackson:
     deserialization:
       fail-on-unknown-properties: true
